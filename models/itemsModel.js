@@ -18,6 +18,14 @@ const itemSchema = new Schema({
     type: Number,
     required: true,
   },
+  listingStartDate: {
+    type: Date,
+    required: true,
+    default: new Date(),
+  },
+  listingEndDate: {
+    type: Date,
+  },
 })
 
 module.exports = mongoose.model('Item', itemSchema)
