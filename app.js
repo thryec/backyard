@@ -16,6 +16,9 @@ app.use(
 )
 
 const itemsController = require('./controllers/itemsController')
+const usersController = require('./controllers/usersController')
+
 app.use('/items', itemsController)
+app.use('/users', usersController)
 
 module.exports = app
