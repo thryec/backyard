@@ -17,7 +17,7 @@ app.post('/', async (req, res) => {
   res.send(item)
 })
 
-app.delete('/:id', (req, res) => {
+app.delete('/:id', async (req, res) => {
   const item = await Item.findOneAndDelete({ _id: req.params.id })
   res.send(item)
 })
