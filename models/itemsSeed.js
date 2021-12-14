@@ -9,7 +9,7 @@ const itemsSeed = [
   {
     name: "Morgana's Wand",
     description: 'Made from unicorn tail hair',
-    iamge: 'https://m.media-amazon.com/images/I/71huqcOKa+L._AC_SL1500_.jpg',
+    image: 'https://m.media-amazon.com/images/I/71huqcOKa+L._AC_SL1500_.jpg',
     price: 1,
     quantity: 1,
   },
