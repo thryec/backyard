@@ -5,24 +5,23 @@ const transactionSchema = new Schema({
   seller: {
     type: String,
     required: true,
-    unique: true,
   },
   buyer: {
     type: String,
     required: true,
   },
-  item: {
-    type: mongoose.Types.ObjectId,
-    ref: 'Item',
-  },
-  purchaseDate: {
-    type: Date,
+  itemId: {
+    type: String,
     required: true,
   },
   salePrice: {
     type: Number,
     required: true,
   },
+  purchaseDate: {
+    type: Date,
+    required: true,
+  },
 })
 
-module.exports = mongoose.model('User', transactionSchema)
+module.exports = mongoose.model('Transaction', transactionSchema)
