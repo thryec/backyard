@@ -7,8 +7,9 @@ const itemsSeed = require('../models/itemsSeed')
 app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended: true }))
 
-app.get('/', (req, res) => {
-  res.send(itemsSeed)
+app.get('/', async (req, res) => {
+  const items = await Item.find()
+  res.send(items)
 })
 
 app.post('/', async (req, res) => {
