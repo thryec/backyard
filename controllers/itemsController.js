@@ -20,7 +20,7 @@ app.get('/:id', async (req, res) => {
 })
 
 app.post('/', async (req, res) => {
-  console.log(req.body)
+  console.log('new item: ', req.body)
   const item = await Item.create(req.body)
   res.send(item)
 })
