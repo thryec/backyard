@@ -12,6 +12,13 @@ app.get('/', async (req, res) => {
   res.send(items)
 })
 
+app.get('/:id', async (req, res) => {
+  const { id } = req.params
+  const item = await Item.findById(id)
+  console.log('item: ', item)
+  res.send(item)
+})
+
 app.post('/', async (req, res) => {
   console.log(req.body)
   const item = await Item.create(req.body)
