@@ -12,30 +12,30 @@ app.get('/', async (req, res) => {
   res.send(tx)
 })
 
-// app.get('/:id', async (req, res) => {
-//   const { id } = req.params
-//   const tx = await Transaction.findById(id)
-//   console.log('transaction: ', tx)
-//   res.send(tx)
-// })
+app.get('/:id', async (req, res) => {
+  const { id } = req.params
+  const tx = await Transaction.findById(id)
+  console.log('transaction: ', tx)
+  res.send(tx)
+})
 
-// app.post('/', async (req, res) => {
-//   console.log('new transaction: ', req.body)
-//   const tx = await Transaction.create(req.body)
-//   res.send(tx)
-// })
+app.post('/', async (req, res) => {
+  console.log('new transaction: ', req.body)
+  const tx = await Transaction.create(req.body)
+  res.send(tx)
+})
 
 app.delete('/:id', async (req, res) => {
   const tx = await Transaction.findOneAndDelete({ _id: req.params.id })
   res.send(tx)
 })
 
-// app.put('/:id', async (req, res) => {
-//   const tx = await Transaction.updateOne({ _id: req.params.id }, req.body, {
-//     new: true,
-//   })
-//   res.send(tx)
-// })
+app.put('/:id', async (req, res) => {
+  const tx = await Transaction.updateOne({ _id: req.params.id }, req.body, {
+    new: true,
+  })
+  res.send(tx)
+})
 
 app.get('/seed', async (req, res) => {
   try {
