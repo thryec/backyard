@@ -34,7 +34,7 @@ const itemSchema = new Schema({
   },
   listingEndDate: {
     type: Date,
-    default: new Date('December 31, 2020 23:59:59'),
+    default: new Date('December 31, 2100 23:59:59'),
   },
 })
 
