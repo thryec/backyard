@@ -10,8 +10,8 @@ const MONGO_BASE_URL = process.env.MONGO_BASE_URL
 const MONGO_URL = `mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_BASE_URL}/${DATABASE}?retryWrites=true&w=majority`
 
 mongoose.connect(MONGO_URL).then(async () => {
-  console.log('database connected')
+  console.log('Database connected')
   app.listen(PORT, () => {
-    console.log('listening on', PORT)
+    console.log('Listening on port', PORT)
   })
 })
