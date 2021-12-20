@@ -10,11 +10,23 @@ app.post('/', async (req, res) => {
         email: req.body.email
     });
 
+    if (!user) {
+        return res.status(401).send({
+            status: 401,
+            message: "Invalid Email",
+
+        });
+    }
+
     const isValid = await bcrypt.compare(req.body.password, user.password);
     if (!isValid) {
 
-        //anauthorised
-        return res.status(401).send();
+        //unauthorised
+        return res.status(401).send({
+            status: 401,
+            message: "Invalid Email",
+
+        });
     }
 
     console.log(user);
@@ -24,7 +36,7 @@ app.post('/', async (req, res) => {
         role: user.type
     }, process.env.SECRET, { expiresIn: '60s', algorithm: 'HS256' });
 
-    console.log('token', token);
+    console.log('token generated: ', token);
     return res.send({ token });
 })
 

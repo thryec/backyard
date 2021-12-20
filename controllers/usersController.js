@@ -3,14 +3,23 @@ const app = express()
 const User = require('../models/usersModel')
 const methodOverride = require('method-override')
 const usersSeed = require('../models/usersSeed')
+const bcrypt = require('bcrypt');
 
 app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended: true }))
 
 // Seed data
-app.get('/seed', async (req, res) => {
+app.get('/seed/hashPW', async (req, res) => {
   for (let user of usersSeed) {
-    await User.create(user);
+    let hashPassword = bcrypt.hash(user.password, 10);
+    user.password = hashPassword;
+
+    try {
+      const newSeedUser = await User.create(user);
+      res.send(newSeedUser);
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 })
 
