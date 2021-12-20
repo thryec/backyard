@@ -20,7 +20,7 @@ app.post('/', async (req, res) => {
     console.log(user);
     // encode jwt and send
     const token = jwt.sign({
-        sub: user.username,
+        sub: user.email,
         role: user.type
     }, process.env.SECRET, { expiresIn: '60s', algorithm: 'HS256' });
 
