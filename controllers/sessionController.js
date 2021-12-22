@@ -11,6 +11,8 @@ app.post('/', async (req, res) => {
     });
 
     if (!user) {
+        console.log("Session Controller: Invalid Email");
+
         return res.status(401).send({
             status: 401,
             message: "Invalid Email",
@@ -20,24 +22,24 @@ app.post('/', async (req, res) => {
 
     const isValid = await bcrypt.compare(req.body.password, user.password);
     if (!isValid) {
-
+        console.log("Session Controller: Invalid Password");
         //unauthorised
         return res.status(401).send({
             status: 401,
-            message: "Invalid Email",
+            message: "Invalid Password",
 
         });
     }
 
-    console.log(user);
+    console.log("User is Log in: " + user);
     // encode jwt and send
     const token = jwt.sign({
         sub: user.email,
         role: user.type
     }, process.env.SECRET, { expiresIn: '60s', algorithm: 'HS256' });
 
-    console.log('token generated: ', token);
+    console.log('token generated:', token);
     return res.send({ token });
-})
+});
 
 module.exports = app
