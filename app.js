@@ -1,5 +1,6 @@
 const express = require('express')
 const methodOverride = require('method-override')
+const jwt = require('jsonwebtoken');
 const app = express()
 
 const cors = require('cors')
@@ -17,8 +18,12 @@ app.use(
 
 const itemsController = require('./controllers/itemsController')
 const usersController = require('./controllers/usersController')
+const sessionController = require('./controllers/sessionController')
+const transactionsController = require('./controllers/transactionsController')
 
+app.use('/sessions', sessionController)
 app.use('/items', itemsController)
 app.use('/users', usersController)
+app.use('/transactions', transactionsController)
 
 module.exports = app
