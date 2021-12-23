@@ -3,24 +3,63 @@ const app = express()
 const User = require('../models/usersModel')
 const methodOverride = require('method-override')
 const usersSeed = require('../models/usersSeed')
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended: true }))
 
-app.get('/', (req, res) => {
-  res.send(usersSeed)
+// Seed data
+app.get('/seed/hashPW', async (req, res) => {
+  for (let user of usersSeed) {
+    let hashPassword = bcrypt.hash(user.password, 10);
+    user.password = hashPassword;
+
+    try {
+      const newSeedUser = await User.create(user);
+      res.send(newSeedUser);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 })
 
 app.post('/', async (req, res) => {
   console.log(req.body)
-  const user = await User.create(req.body)
-  res.send(user)
+  const user = await User.create(req.body);
+  res.send(user);
+});
+
+//verify jwt
+app.use((req, res, next) => {
+
+  console.log("UserController: Middleware Check Activated");
+  console.log("Request Information: ", req.headers.token);
+  if (!req.headers.token) {
+    res.status(401).send("Unauthenticated, Please Login");
+    return
+  }
+  try {
+    const payload = jwt.verify(req.headers.token, process.env.SECRET);
+    console.log("payload", payload);
+    req.context = payload;
+    next();
+  } catch (err) {
+    console.log("error message caught in user controller: ", err);
+    res.status(401).send("Expired or Invalid Token, Please Login");
+    return
+  }
+});
+
+app.get('/', async (req, res) => {
+  const users = await User.find();
+  res.send(users);
 })
 
 app.delete('/:id', async (req, res) => {
-  const user = await User.findOneAndDelete({ _id: req.params.id })
-  res.send(user)
-})
+  const user = await User.findOneAndDelete({ _id: req.params.id });
+  res.send(user);
+});
 
 app.put('/:id', async (req, res) => {
   const user = await User.updateOne({ _id: req.params.id }, req.body, {
