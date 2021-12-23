@@ -3,6 +3,7 @@ const app = express()
 const Transaction = require('../models/transactionsModel')
 const methodOverride = require('method-override')
 const transactionsSeed = require('../models/transactionsSeed')
+const { text } = require('express')
 
 app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended: true }))
@@ -22,7 +23,8 @@ app.get('/:id', async (req, res) => {
 app.post('/', async (req, res) => {
   console.log('new transaction: ', req.body)
   const tx = await Transaction.create(req.body)
-  res.send(tx)
+  res.send(tx._id)
+  console.log('tx: ', tx._id)
 })
 
 app.delete('/:id', async (req, res) => {

@@ -22,6 +22,23 @@ const transactionSchema = new Schema({
     type: Date,
     required: true,
   },
+  orderStatus: {
+    type: String,
+    required: true,
+  },
+  shippingAddress: {
+    type: {
+      firstName: String,
+      lastName: String,
+      emailAddress: String,
+      country: String,
+      streetAddress: String,
+      city: String,
+      state: String,
+      postalCode: Number,
+    },
+    required: true,
+  },
 })
 
 module.exports = mongoose.model('Transaction', transactionSchema)
