@@ -25,9 +25,16 @@ app.get('/seed/hashPW', async (req, res) => {
 })
 
 app.post('/', async (req, res) => {
-  console.log(req.body)
-  const user = await User.create(req.body);
-  res.send(user);
+  console.log(req.body);
+  try {
+    const user = await User.create(req.body);
+    console.log(user);
+    res.send(user);
+  } catch (error) {
+    console.log(error.message);
+  }
+
+
 });
 
 //verify jwt
