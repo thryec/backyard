@@ -59,7 +59,9 @@ app.use((req, res, next) => {
 });
 
 app.get('/', async (req, res) => {
+  console.log("User Controller: Trying to get users");
   const users = await User.find();
+  console.log(users);
   res.send(users);
 })
 
