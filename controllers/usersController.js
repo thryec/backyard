@@ -66,6 +66,7 @@ app.get('/', async (req, res) => {
 })
 
 app.delete('/:id', async (req, res) => {
+  console.log("User Controller: Trying to delete an user");
   const user = await User.findOneAndDelete({ _id: req.params.id });
   res.send(user);
 });
