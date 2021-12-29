@@ -3,7 +3,6 @@ const app = express()
 const Transaction = require('../models/transactionsModel')
 const methodOverride = require('method-override')
 const transactionsSeed = require('../models/transactionsSeed')
-const { text } = require('express')
 
 app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended: true }))
@@ -11,6 +10,24 @@ app.use(express.urlencoded({ extended: true }))
 app.get('/', async (req, res) => {
   const tx = await Transaction.find()
   res.send(tx)
+})
+
+// routes for transaction history
+
+app.get('/purchases', async (req, res) => {
+  const { user } = req.query
+  console.log('user request params', user)
+  const data = await Transaction.find({ buyer: user })
+  console.log('purchase data: ', data)
+  res.send(data)
+})
+
+app.get('/sales', async (req, res) => {
+  const { user } = req.query
+  console.log('user request params', user)
+  const data = await Transaction.find({ seller: user })
+  console.log('sales data: ', data)
+  res.send(data)
 })
 
 app.get('/:id', async (req, res) => {
