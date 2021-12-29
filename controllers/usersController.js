@@ -43,7 +43,7 @@ app.use((req, res, next) => {
   console.log("UserController: Middleware Check Activated");
   console.log("Request Information: ", req.headers.token);
   if (!req.headers.token) {
-    res.status(401).send("Unauthenticated, Please Login");
+    res.status(401).send("Unauthenticated,no token, Please Login");
     return
   }
   try {
@@ -59,13 +59,21 @@ app.use((req, res, next) => {
 });
 
 app.get('/', async (req, res) => {
+  console.log("User Controller: Trying to get users");
   const users = await User.find();
+  console.log(users);
   res.send(users);
 })
 
 app.delete('/:id', async (req, res) => {
-  const user = await User.findOneAndDelete({ _id: req.params.id });
-  res.send(user);
+  try {
+    console.log("User Controller: Trying to delete an user");
+    const user = await User.findOneAndDelete({ _id: req.params.id });
+    res.send(`This ${user.username} has been deleted`);
+  } catch (error) {
+    console.log("Delete User Controller Error: " + error.message);
+  }
+
 });
 
 app.put('/:id', async (req, res) => {
