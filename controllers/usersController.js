@@ -24,6 +24,15 @@ app.get('/seed/hashPW', async (req, res) => {
   }
 })
 
+app.get('/seed', async (req, res) => {
+  try {
+    const seedUsers = await User.create(usersSeed)
+    res.send(seedUsers)
+  } catch (err) {
+    res.send(err.message)
+  }
+})
+
 app.post('/', async (req, res) => {
   console.log(req.body);
   try {
@@ -48,7 +57,12 @@ app.use((req, res, next) => {
   }
   try {
     const payload = jwt.verify(req.headers.token, process.env.SECRET);
-    console.log("payload", payload);
+    console.log("current payload", payload);
+    if (payload.role !== "admin") {
+      console.log("UserController.js: User is not admin");
+      res.status(401).send("User is not admin, Unauthourized users");
+      return
+    }
     req.context = payload;
     next();
   } catch (err) {
@@ -82,15 +96,6 @@ app.put('/:id', async (req, res) => {
     new: true,
   })
   res.send(user)
-})
-
-app.get('/seed', async (req, res) => {
-  try {
-    const seedUsers = await User.create(usersSeed)
-    res.send(seedUsers)
-  } catch (err) {
-    res.send(err.message)
-  }
 })
 
 module.exports = app
