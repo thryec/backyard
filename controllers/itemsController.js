@@ -38,6 +38,7 @@ app.put('/:id', async (req, res) => {
 })
 
 app.get('/seed', async (req, res) => {
+  console.log('seeding with data: ', itemsSeed)
   try {
     const seedItems = await Item.create(itemsSeed)
     res.send(seedItems)
