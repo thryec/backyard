@@ -7,8 +7,13 @@ const itemsSeed = require('../models/itemsSeed')
 app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended: true }))
 
-app.get('/', async (req, res) => {
+app.get('/all', async (req, res) => {
   const items = await Item.find()
+  res.send(items)
+})
+
+app.get('/listed', async (req, res) => {
+  const items = await Item.find({ status: 'Listed' })
   res.send(items)
 })
 
