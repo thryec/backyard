@@ -47,4 +47,9 @@ app.get('/seed', async (req, res) => {
   }
 })
 
+// app.delete('/all', async (req, res) => {
+//   const tx = await Item.deleteMany({})
+//   res.send(tx)
+// })
+
 module.exports = app
