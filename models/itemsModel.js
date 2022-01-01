@@ -23,9 +23,13 @@ const itemSchema = new Schema({
     required: true,
   },
   seller: {
-    type: mongoose.Types.ObjectId,
-    ref: 'User',
-    // required: true,
+    type: String,
+    required: true,
+  },
+  status: {
+    type: String,
+    required: true,
+    default: 'Listed',
   },
   listingStartDate: {
     type: Date,
