@@ -35,7 +35,8 @@ app.post('/', async (req, res) => {
     // encode jwt and send
     const token = jwt.sign({
         sub: user.email,
-        role: user.type
+        role: user.type,
+        walletAddress: user.walletAddress
     }, process.env.SECRET, { expiresIn: '1h', algorithm: 'HS256' });
     console.log('token generated:', token);
     return res.send({ token });
