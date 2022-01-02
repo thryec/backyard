@@ -10,8 +10,18 @@ const transactionSchema = new Schema({
     type: String,
     required: true,
   },
-  itemId: {
-    type: String,
+  item: {
+    type: {
+      name: String,
+      description: String,
+      price: Number,
+      seller: String,
+      _id: String,
+      image: String,
+      quantity: Number,
+      listingEndDate: Date,
+      ListingStartDate: Date,
+    },
     required: true,
   },
   salePrice: {
