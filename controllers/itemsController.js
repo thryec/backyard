@@ -7,8 +7,13 @@ const itemsSeed = require('../models/itemsSeed')
 app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended: true }))
 
-app.get('/', async (req, res) => {
+app.get('/all', async (req, res) => {
   const items = await Item.find()
+  res.send(items)
+})
+
+app.get('/listed', async (req, res) => {
+  const items = await Item.find({ status: 'Listed' })
   res.send(items)
 })
 
@@ -38,6 +43,7 @@ app.put('/:id', async (req, res) => {
 })
 
 app.get('/seed', async (req, res) => {
+  console.log('seeding with data: ', itemsSeed)
   try {
     const seedItems = await Item.create(itemsSeed)
     res.send(seedItems)
@@ -45,5 +51,10 @@ app.get('/seed', async (req, res) => {
     res.send(err.message)
   }
 })
+
+// app.delete('/all', async (req, res) => {
+//   const tx = await Item.deleteMany({})
+//   res.send(tx)
+// })
 
 module.exports = app
