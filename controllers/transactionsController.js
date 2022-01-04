@@ -17,7 +17,7 @@ app.get('/', async (req, res) => {
 app.get('/purchases', async (req, res) => {
   const { user } = req.query
   console.log('user request params', user)
-  const data = await Transaction.find({ buyer: user })
+  const data = await Transaction.find({ buyer: user, orderStatus: 'Success' })
   console.log('purchase data: ', data)
   res.send(data)
 })
@@ -25,7 +25,7 @@ app.get('/purchases', async (req, res) => {
 app.get('/sales', async (req, res) => {
   const { user } = req.query
   console.log('user request params', user)
-  const data = await Transaction.find({ seller: user })
+  const data = await Transaction.find({ seller: user, orderStatus: 'Success' })
   console.log('sales data: ', data)
   res.send(data)
 })
