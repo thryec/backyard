@@ -17,6 +17,12 @@ app.get('/listed', async (req, res) => {
   res.send(items)
 })
 
+app.get('/listed/:id', async (req, res) => {
+  const { id } = req.params
+  const items = await Item.find({ status: 'Listed', seller: id })
+  res.send(items)
+})
+
 app.get('/:id', async (req, res) => {
   const { id } = req.params
   const item = await Item.findById(id)
