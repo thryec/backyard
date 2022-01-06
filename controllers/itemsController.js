@@ -17,6 +17,11 @@ app.get('/listed', async (req, res) => {
   res.send(items)
 })
 
+app.get('/listed/newest', async (req, res) => {
+  const items = await Item.find({ status: 'Listed' }).sort({ listingStartDate: -1 }).limit(3)
+  res.send(items)
+})
+
 app.get('/listed/:id', async (req, res) => {
   const { id } = req.params
   const items = await Item.find({ status: 'Listed', seller: id })
