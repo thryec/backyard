@@ -78,6 +78,7 @@ app.get('/', async (req, res) => {
     res.send(users)
   } catch (err) {
     res.status(500).send("Unexpected error has occured while retreiving users");
+    return
   }
 })
 
