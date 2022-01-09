@@ -72,9 +72,13 @@ app.use((req, res, next) => {
 app.get('/', async (req, res) => {
   console.log('User Controller: Trying to get users')
   console.log(req.context)
-  const users = await User.find()
-  console.log(users)
-  res.send(users)
+  try {
+    const users = await User.find()
+    console.log(users)
+    res.send(users)
+  } catch (err) {
+    res.status(500).send("Unexpected error has occured while retreiving users");
+  }
 })
 
 app.delete('/:id', async (req, res) => {
