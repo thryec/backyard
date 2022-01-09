@@ -45,7 +45,7 @@ const transactionSchema = new Schema({
       streetAddress: String,
       city: String,
       state: String,
-      postalCode: Number,
+      postalCode: String,
     },
     required: true,
   },
