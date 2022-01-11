@@ -29,10 +29,19 @@ app.get('/listed/:id', async (req, res) => {
 })
 
 app.get('/:id', async (req, res) => {
-  const { id } = req.params
-  const item = await Item.findById(id)
-  console.log('item: ', item)
-  res.send(item)
+  try {
+    const { id } = req.params
+    console.log(id)
+    if ((id === undefined) | null) {
+      throw new Error('item name undefined')
+    }
+    const item = await Item.findById(id)
+    console.log('item: ', item)
+    res.send(item)
+  } catch (err) {
+    res.status(404).send(err.message)
+    console.log(err)
+  }
 })
 
 app.post('/', async (req, res) => {
